@@ -1,4 +1,4 @@
-## Using Natural Language Processing Techniques to Understand Corporate Sustainability Issues
+## The State of ESG: Using Natural Language Processing to Illuminate Corporate Sustainability Issues
 ### Unsupervised NLP Project Write-Up
 
 by Jenica Andersen
