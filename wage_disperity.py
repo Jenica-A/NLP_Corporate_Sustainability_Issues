@@ -44,10 +44,9 @@ reg = linear_model.LinearRegression()
 reg.fit(X.values,y.values)
 
 section_list = sorted(df.region.unique())
-selections = ['U.S.','Arts','World']
-selections = st.selectbox(
-     'Choose at least one section to model (by default all sections are shown)',
-     section_list, default = section_list)
+st.selectbox('Choose a region, arbitrarily labeled: 1 = Pacific, 2 = Mountain, 3 = Central, 4 = Eastern',
+     section_list)
+#st.selectbox(label, options, index=0, format_func=special_internal_function, key=None, help=None, on_change=None, args=None, kwargs=None, *, disabled=False, label_visibility="visible")
 
 
 female_wage = reg.predict([[2,4,17,40]])
