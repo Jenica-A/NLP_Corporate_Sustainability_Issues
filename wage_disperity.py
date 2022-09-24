@@ -32,3 +32,45 @@ st.pyplot(fig)
 # - Switch from function to procedural
 # - Lag in rendering
 # - When you deploy you have to add an external dependency file (requirements.txt)
+
+#Attempt quick linear regression. 
+# based on code from https://www.kaggle.com/code/sarthakniwate13/linear-regression-multiple-variables-example-2
+# importing essential libraries
+import numpy as np
+import pandas as pd
+from sklearn import linear_model
+import matplotlib.pyplot as plt
+%matplotlib inline
+import seaborn as sns
+
+df = pd.read_csv(r'salary_df.csv')
+X = df[['sex','region','yrsexp','age']]
+y = df['salary']
+reg = linear_model.LinearRegression()
+reg.fit(X.values,y.values)
+female_wage = reg.predict([[2,4,17,40]])
+male_wage = reg.predict([[1,4,17,40]])
+print("With all other variables equal, the male worker earns ${} more than the female worker annually.".format(round(float(male_wage - female_wage)),4))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
