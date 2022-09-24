@@ -34,7 +34,7 @@ st.write(f"Age = {age} \n\n Year of Experience = {years_exp}")
 df = pd.read_csv("./salary_df.csv")
 if st.checkbox("Show raw data"):
     st.subheader("Raw data")
-    st.subheader("In the 'sex' column, 1 = Male, 2 = Female. In the 'regions' column, 1 = 'North', 2 = 'South', 3 = 'East', 4 = 'West'")
+    st.write("In the 'sex' column, 1 = Male, 2 = Female. In the 'regions' column, I labeled the regions as: 1 = 'Pacific', 2 = 'Mountain', 3 = 'Central', 4 = 'Eastern'")
     st.write(df)
     
 X = df[['sex','region','yrsexp','age']]
