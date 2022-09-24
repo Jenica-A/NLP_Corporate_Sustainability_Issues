@@ -26,7 +26,7 @@ st.write("It contains about 21,500 data points from ...")
 
 age = st.slider('age',  min_value=25, max_value=65, step=1)
 years_exp = st.slider('yrsexp',min_value=0,  max_value=50, step=1)
-st.write(f"Age = {trend} \n\n Year of Experience = {noise}")
+st.write(f"Age = {age} \n\n Year of Experience = {years_exp}")
 
 
 
