@@ -16,20 +16,6 @@ st.title("Wage Disperity Simulation")
 st.markdown('''This salary data comes from [this kaggle dataset](https://www.kaggle.com/datasets/fedesoriano/gender-pay-gap-dataset)''',unsafe_allow_html=True)
 st.write("It contains about 21,500 data points from ...")
 
-#st.sidebar.markdown('''
-## Sections
-#- [Section 1](#section-1)
-#- [Section 2](#section-2)
-#''', unsafe_allow_html=True)
-
-
-
-age = st.slider('age',  min_value=25, max_value=65, step=1)
-years_exp = st.slider('yrsexp',min_value=0,  max_value=50, step=1)
-st.write(f"Age = {age} \n\n Year of Experience = {years_exp}")
-
-
-
 #@st.cache 
 df = pd.read_csv("./salary_df.csv")
 if st.checkbox("Show raw data"):
@@ -38,20 +24,30 @@ if st.checkbox("Show raw data"):
     st.write("I labeled the regions as: 1 = 'Pacific', 2 = 'Mountain', 3 = 'Central', 4 = 'Eastern'")
     st.write(df)
     
+#st.sidebar.markdown('''
+## Sections
+#- [Section 1](#section-1)
+#- [Section 2](#section-2)
+#''', unsafe_allow_html=True)
+
+age = st.slider('age',  min_value=25, max_value=65, step=1)
+years_exp = st.slider('yrsexp',min_value=0,  max_value=50, step=1)
+st.write(f"Age = {age} \n\n Year of Experience = {years_exp}")
+    
 X = df[['sex','region','yrsexp','age']]
 y = df['salary']
 reg = linear_model.LinearRegression()
 reg.fit(X.values,y.values)
 
 section_list = sorted(df.region.unique())
-st.selectbox('Choose a region, arbitrarily labeled: 1 = Pacific, 2 = Mountain, 3 = Central, 4 = Eastern',
+region = st.selectbox('Choose a region, arbitrarily labeled: 1 = Pacific, 2 = Mountain, 3 = Central, 4 = Eastern',
      section_list)
 #st.selectbox(label, options, index=0, format_func=special_internal_function, key=None, help=None, on_change=None, args=None, kwargs=None, *, disabled=False, label_visibility="visible")
 
 
-female_wage = reg.predict([[2,4,17,40]])
-male_wage = reg.predict([[1,4,17,40]])
-st.write("With all other variables equal, the male worker earns ${} more than the female worker annually.".format(round(float(male_wage - female_wage)),4))
+female_wage = reg.predict([[2,region,years_exp,age]])
+male_wage = reg.predict([[1,region,years_exp,age]])
+st.write("Emplyees in X, age X, with X years experience, the male worker earns ${} more than the female worker annually.".format(round(float(male_wage - female_wage)),4))
 
 
 
