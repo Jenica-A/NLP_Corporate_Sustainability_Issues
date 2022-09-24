@@ -45,7 +45,7 @@ reg.fit(X.values,y.values)
 
 section_list = sorted(df.region.unique())
 selections = ['U.S.','Arts','World']
-selections = st.select(
+selections = st.selectbox(
      'Choose at least one section to model (by default all sections are shown)',
      section_list, default = section_list)
 
