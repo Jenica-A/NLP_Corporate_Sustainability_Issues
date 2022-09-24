@@ -31,7 +31,7 @@ st.write(f"Age = {trend} \n\n Year of Experience = {noise}")
 
 
 @st.cache 
-df = pd.read_csv(r'salary_df.csv')
+df = pd.read_csv("./salary_df.csv")
 if st.checkbox("Show raw data"):
     st.subheader("Raw data")
     st.write(df)
