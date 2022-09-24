@@ -47,9 +47,10 @@ region = st.selectbox('Choose a region, arbitrarily labeled: 1 = Pacific, 2 = Mo
 
 female_wage = reg.predict([[2,region,years_exp,age]])
 male_wage = reg.predict([[1,region,years_exp,age]])
+wage_diff = male_wage - female wage
 st.write("female wage is $",female_wage)
 st.write("male wage is $",male_wage)
-st.write("Emplyees in X, age X, with X years experience, the male worker earns ${} more than the female worker annually.".format(round(float(male_wage - female_wage)),4))
+st.write("Emplyees in", region,", age", age,", with", years_exp," years experience, the male worker earns $", wage_diff," more than the female worker annually.")
 
 
 
