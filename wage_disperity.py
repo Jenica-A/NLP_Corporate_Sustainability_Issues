@@ -26,7 +26,7 @@ if st.checkbox("Show raw data"):
     
 age = st.slider('Emplyee Age',  min_value=25, max_value=65, step=1)
 years_exp = st.slider('Years of Experience',min_value=0,  max_value=50, step=1)
-if age > years_exp:
+if age <= years_exp:
     st.warning('please pick a reasonable amount of experience based on employee age for most reliable model results'),
 else:
     st.write(f"Age = {age} \n\n Year of Experience = {years_exp}")
