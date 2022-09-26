@@ -38,7 +38,8 @@ section_list = sorted(df.region.unique())
 region = st.selectbox('Choose a region, arbitrarily imagined: 1 = Pacific, 2 = Mountain, 3 = Central, 4 = Eastern',
      section_list)
 st.markdown("***")
-st.write(f"Model input/Your choices: \n\n Age = {age} \n\n Years of Experience = {years_exp} \n\n Region = {region}")
+st.subheader("Model Input/Your choices:")
+st.write(f"Age = {age} \n\n Years of Experience = {years_exp} \n\n Region = {region}")
 st.markdown("***")
     
 X = df[['sex','region','yrsexp','age']]
@@ -50,10 +51,10 @@ reg.fit(X.values,y.values)
 female_wage = np.round(reg.predict([[2,region,years_exp,age]]),2)
 male_wage = np.round(reg.predict([[1,region,years_exp,age]]),2)
 wage_diff = round(float(male_wage - female_wage),2)
-st.header("Model Output")
+st.subheader("Model Output")
 st.write(f"Female wage is ${female_wage}")
 st.write(f"Male wage is ${male_wage}")
-st.subheader(f"The wage gap is ${wage_diff}")
+st.header(f"The wage gap is ${wage_diff}")
 
 
 
