@@ -28,7 +28,8 @@ if st.checkbox("Show raw data"):
     st.write("In the 'sex' column, 1 = Male, 2 = Female") 
     st.write("I labeled the regions as: 1 = 'Pacific', 2 = 'Mountain', 3 = 'Central', 4 = 'Eastern'")
     st.write(df)
- st.markdown("***")
+
+st.markdown("***")
 
 st.write('Pick a reasonable amount of experience based on employee age, for the most reliable model results')
 age = st.slider('Emplyee Age',  min_value=25, max_value=65, step=1)
