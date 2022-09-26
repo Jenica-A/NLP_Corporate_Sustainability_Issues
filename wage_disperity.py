@@ -14,7 +14,7 @@ from sklearn import linear_model
 #Quick linear regression code based on https://www.kaggle.com/code/sarthakniwate13/linear-regression-multiple-variables-example-2
 st.title("Wage Disperity Simulation")
 st.write('This app uses linear regression to model the difference between employee salary, based on gender')
-st.markdown(***)
+st.markdown("***")
 st.markdown('''The salary data comes from [this kaggle dataset](https://www.kaggle.com/datasets/fedesoriano/gender-pay-gap-dataset), where a lengthier explanation of the data can be found.''',unsafe_allow_html=True)
 st.markdown('''The data replicates [this 1996 publication](https://docs.iza.org/dp9656.pdf) from the Institute of Labor Economics, Bonn Germany''',unsafe_allow_html=True)
 st.write("Here, a stripped down version is used for a simple model. Only sex, region, years of experience and age are included.")
@@ -30,7 +30,6 @@ if st.checkbox("Show raw data"):
     
 st.write('Pick a reasonable amount of experience based on employee age for most reliable model results')
 age = st.slider('Emplyee Age',  min_value=25, max_value=65, step=1)
-st.markdown("***")
 st.markdown("***")
 years_exp = st.slider('Years of Experience',min_value=0,  max_value=50, step=1)
 
