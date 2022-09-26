@@ -24,12 +24,6 @@ if st.checkbox("Show raw data"):
     st.write("I labeled the regions as: 1 = 'Pacific', 2 = 'Mountain', 3 = 'Central', 4 = 'Eastern'")
     st.write(df)
     
-#st.sidebar.markdown('''
-## Sections
-#- [Section 1](#section-1)
-#- [Section 2](#section-2)
-#''', unsafe_allow_html=True)
-
 age = st.slider('age',  min_value=25, max_value=65, step=1)
 years_exp = st.slider('yrsexp',min_value=0,  max_value=50, step=1)
 st.write(f"Age = {age} \n\n Year of Experience = {years_exp}")
@@ -40,7 +34,7 @@ reg = linear_model.LinearRegression()
 reg.fit(X.values,y.values)
 
 section_list = sorted(df.region.unique())
-region = st.selectbox('Choose a region (arbitrarily imagined: 1 = Pacific, 2 = Mountain, 3 = Central, 4 = Eastern',
+region = st.selectbox('Choose a region (arbitrarily imagined: 1 = Pacific, 2 = Mountain, 3 = Central, 4 = Eastern'),
      section_list)
 #st.selectbox(label, options, index=0, format_func=special_internal_function, key=None, help=None, on_change=None, args=None, kwargs=None, *, disabled=False, label_visibility="visible")
 
@@ -50,7 +44,7 @@ male_wage = np.round(reg.predict([[1,region,years_exp,age]]),2)
 wage_diff = round(float(male_wage - female_wage),2)
 st.write(f"Female wage is ${female_wage}")
 st.write(f"Male wage is ${male_wage}")
-st.write(f"In cases where emplyees in region {region}, who are {age} years old, with {years_exp} years of experience, the male worker earns ${wage_diff} more than the female worker annually.")
+st.title(f"In cases where emplyees in region {region}, who are {age} years old, with {years_exp} years of experience, the male worker earns ${wage_diff} more than the female worker annually.")
 
 
 
