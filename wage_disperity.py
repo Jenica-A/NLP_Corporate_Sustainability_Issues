@@ -34,7 +34,7 @@ reg = linear_model.LinearRegression()
 reg.fit(X.values,y.values)
 
 section_list = sorted(df.region.unique())
-region = st.selectbox('Choose a region arbitrarily imagined: 1 = Pacific, 2 = Mountain, 3 = Central, 4 = Eastern',
+region = st.selectbox('Choose a region, arbitrarily imagined: 1 = Pacific, 2 = Mountain, 3 = Central, 4 = Eastern',
      section_list)
 #st.selectbox(label, options, index=0, format_func=special_internal_function, key=None, help=None, on_change=None, args=None, kwargs=None, *, disabled=False, label_visibility="visible")
 
@@ -42,9 +42,11 @@ region = st.selectbox('Choose a region arbitrarily imagined: 1 = Pacific, 2 = Mo
 female_wage = np.round(reg.predict([[2,region,years_exp,age]]),2)
 male_wage = np.round(reg.predict([[1,region,years_exp,age]]),2)
 wage_diff = round(float(male_wage - female_wage),2)
+st.header("Model Output")
 st.write(f"Female wage is ${female_wage}")
 st.write(f"Male wage is ${male_wage}")
-st.subheader(f"In cases where emplyees in region {region}, who are {age} years old, with {years_exp} years of experience, the male worker earns ${wage_diff} more than the female worker annually.")
+st.subheader(f"The wage gap is ${wage_diff}") 
+st.write("In region #{region}, where employees are {age} years old, with {years_exp} years of experience. The male worker earns more.")
 
 
 
