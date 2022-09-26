@@ -52,8 +52,8 @@ female_wage = np.round(reg.predict([[2,region,years_exp,age]]),2)
 male_wage = np.round(reg.predict([[1,region,years_exp,age]]),2)
 wage_diff = round(float(male_wage - female_wage),2)
 st.subheader("Model Output")
-st.write(f"Female wage is ${:,}".format(female_wage))
-st.write(f"Male wage is ${:,}".format(male_wage))
+st.write("Female wage is ${:,}".format(female_wage))
+st.write("Male wage is ${:,}".format(male_wage))
 st.header("The wage gap is ${:,}, annually".format(wage_diff))
 
 
