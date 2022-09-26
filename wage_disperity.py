@@ -13,23 +13,24 @@ from sklearn import linear_model
 
 #Quick linear regression code based on https://www.kaggle.com/code/sarthakniwate13/linear-regression-multiple-variables-example-2
 st.title("Wage Disperity Simulation")
-st.markdown('''This salary data comes from [this kaggle dataset](https://www.kaggle.com/datasets/fedesoriano/gender-pay-gap-dataset)''',unsafe_allow_html=True)
-st.write("It contains about 21,500 data points from ...")
+st.caption('This app uses linear regression to model the difference between employee salary, based on gender')
+st.markdown('''The salary data comes from [this kaggle dataset](https://www.kaggle.com/datasets/fedesoriano/gender-pay-gap-dataset), where a lengthier discussion can be found on the data''',unsafe_allow_html=True)
+st.write("It is stripped down to include only sex, region, years of experience and age. It contains about 21,500 data points")
+st.markdown('''A lengthier discussion can be found in [this 1996 publication](https://docs.iza.org/dp9656.pdf) from the Institute of Labor Economics, Bonn Germany''',unsafe_allow_html=True)
 
 #@st.cache 
 df = pd.read_csv("./salary_df.csv")
 if st.checkbox("Show raw data"):
     st.subheader("Raw data")
-    st.write("In the 'sex' column, 1 = Male, 2 = Female. In the 'regions' column") 
+    st.write("In the 'sex' column, 1 = Male, 2 = Female") 
     st.write("I labeled the regions as: 1 = 'Pacific', 2 = 'Mountain', 3 = 'Central', 4 = 'Eastern'")
     st.write(df)
     
+st.write('Pick a reasonable amount of experience based on employee age for most reliable model results')
 age = st.slider('Emplyee Age',  min_value=25, max_value=65, step=1)
 years_exp = st.slider('Years of Experience',min_value=0,  max_value=50, step=1)
-if age <= years_exp:
-    st.warning('please pick a reasonable amount of experience based on employee age for most reliable model results'),
-else:
-    st.write(f"Age = {age} \n\n Year of Experience = {years_exp}")
+
+st.write(f"Age = {age} \n\n Year of Experience = {years_exp}")
     
 X = df[['sex','region','yrsexp','age']]
 y = df['salary']
