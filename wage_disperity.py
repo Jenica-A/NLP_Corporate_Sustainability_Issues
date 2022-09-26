@@ -50,7 +50,7 @@ male_wage = reg.predict([[1,region,years_exp,age]])
 wage_diff = male_wage - female_wage
 st.write("female wage is $",female_wage)
 st.write("male wage is $",male_wage)
-st.write(f"Emplyees in region {region}, {age} years old, with {years_exp} years of experience, the male worker earns ${} more than the female worker annually.".format(float(wage_diff)))
+st.write(f"Emplyees in region {region}, {age} years old, with {years_exp} years of experience, the male worker earns ${wage_diff} more than the female worker annually.")
 
 
 
