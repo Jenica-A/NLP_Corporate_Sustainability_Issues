@@ -32,7 +32,7 @@ if st.checkbox("Show raw data"):
 st.markdown("***")
 
 st.write('Pick a reasonable amount of experience based on employee age, for the most reliable model results')
-age = st.slider('Emplyee Age',  min_value=25, max_value=65, step=1)
+age = st.slider('Employee Age',  min_value=25, max_value=65, step=1)
 st.markdown("***")
 years_exp = st.slider('Years of Experience',min_value=0,  max_value=50, step=1)
 st.markdown("***")
