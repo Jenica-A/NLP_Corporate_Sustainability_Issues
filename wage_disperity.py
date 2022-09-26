@@ -28,8 +28,9 @@ if st.checkbox("Show raw data"):
     st.write("In the 'sex' column, 1 = Male, 2 = Female") 
     st.write("I labeled the regions as: 1 = 'Pacific', 2 = 'Mountain', 3 = 'Central', 4 = 'Eastern'")
     st.write(df)
-    
-st.caption('Pick a reasonable amount of experience based on employee age, for the most reliable model results')
+ st.markdown("***")
+
+st.write('Pick a reasonable amount of experience based on employee age, for the most reliable model results')
 age = st.slider('Emplyee Age',  min_value=25, max_value=65, step=1)
 st.markdown("***")
 years_exp = st.slider('Years of Experience',min_value=0,  max_value=50, step=1)
@@ -54,7 +55,7 @@ wage_diff = round(float(male_wage - female_wage),2)
 st.subheader("Model Output")
 st.write(f"Female wage is ${female_wage}")
 st.write(f"Male wage is ${male_wage}")
-st.header("The wage gap is ${:,}, annually".format(wage_diff))
+st.header("Your company's wage gap is ${:,}, annually".format(wage_diff))
 
 
 
