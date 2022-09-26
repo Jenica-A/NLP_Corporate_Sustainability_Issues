@@ -38,7 +38,7 @@ section_list = sorted(df.region.unique())
 region = st.selectbox('Choose a region, arbitrarily imagined: 1 = Pacific, 2 = Mountain, 3 = Central, 4 = Eastern',
      section_list)
 st.markdown("***")
-st.subheader("Model Input/Your choices:")
+st.subheader("Model Input:")
 st.write(f"Age = {age} \n\n Years of Experience = {years_exp} \n\n Region = {region}")
 st.markdown("***")
     
