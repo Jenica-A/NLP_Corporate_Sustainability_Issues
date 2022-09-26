@@ -45,8 +45,8 @@ region = st.selectbox('Choose a region (arbitrarily imagined: 1 = Pacific, 2 = M
 #st.selectbox(label, options, index=0, format_func=special_internal_function, key=None, help=None, on_change=None, args=None, kwargs=None, *, disabled=False, label_visibility="visible")
 
 
-female_wage = reg.predict([[2,region,years_exp,age]])
-male_wage = reg.predict([[1,region,years_exp,age]])
+female_wage = np.round(reg.predict([[2,region,years_exp,age]]),2)
+male_wage = np.round(reg.predict([[1,region,years_exp,age]]),2)
 wage_diff = round(float(male_wage - female_wage),2)
 st.write("female wage is $",female_wage)
 st.write("male wage is $",male_wage)
