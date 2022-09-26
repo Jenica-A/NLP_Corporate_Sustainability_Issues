@@ -54,10 +54,7 @@ wage_diff = round(float(male_wage - female_wage),2)
 st.subheader("Model Output")
 st.write(f"Female wage is ${female_wage}")
 st.write(f"Male wage is ${male_wage}")
-st.header(f"The wage gap is ${wage_diff}, annually")
-
-
-
+st.header("The wage gap is ${:,}, annually".format(wage_diff))
 
 
 
