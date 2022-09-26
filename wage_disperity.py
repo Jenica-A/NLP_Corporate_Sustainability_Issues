@@ -46,7 +46,7 @@ st.header("Model Output")
 st.write(f"Female wage is ${female_wage}")
 st.write(f"Male wage is ${male_wage}")
 st.subheader(f"The wage gap is ${wage_diff}") 
-st.write("In region #{region}, where employees are {age} years old, with {years_exp} years of experience. The male worker earns more.")
+st.write(f"In region #{region}, where employees are {age} years old, with {years_exp} years of experience. The male worker earns more.")
 
 
 
