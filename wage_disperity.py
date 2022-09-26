@@ -15,9 +15,9 @@ from sklearn import linear_model
 st.title("Wage Disperity Simulation")
 st.write('This app uses linear regression to model the difference between employee salary, based on gender.')
 st.markdown("***")
-st.markdown('''The salary data comes from [this kaggle dataset](https://www.kaggle.com/datasets/fedesoriano/gender-pay-gap-dataset), where a lengthier explanation of the data can be found.''',unsafe_allow_html=True)
-st.markdown('''The data replicates [this 1996 publication](https://docs.iza.org/dp9656.pdf) from the Institute of Labor Economics, Bonn Germany, which explores the lower earnings of female workers compared to their male counterparts''',unsafe_allow_html=True)
-st.write("Here, a stripped down version is used for a simple model. Only sex, region, years of experience and age are included.")
+st.markdown('''The salary data come from [this kaggle dataset](https://www.kaggle.com/datasets/fedesoriano/gender-pay-gap-dataset), where a lengthier explanation of the data can be found.''',unsafe_allow_html=True)
+st.markdown('''The data replicate [this 1996 publication](https://docs.iza.org/dp9656.pdf) from the Institute of Labor Economics, Bonn Germany, which explores the lower earnings of female workers compared to their male counterparts''',unsafe_allow_html=True)
+st.write("Here, a stripped down version of the data is used for a simple model. \n\n Only sex, region, years of experience and age are included.")
 st.markdown("***")
 
 
