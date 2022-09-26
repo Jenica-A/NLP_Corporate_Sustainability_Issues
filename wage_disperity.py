@@ -14,10 +14,11 @@ from sklearn import linear_model
 #Quick linear regression code based on https://www.kaggle.com/code/sarthakniwate13/linear-regression-multiple-variables-example-2
 st.title("Wage Disperity Simulation")
 st.write('This app uses linear regression to model the difference between employee salary, based on gender')
+st.markdown(***)
 st.markdown('''The salary data comes from [this kaggle dataset](https://www.kaggle.com/datasets/fedesoriano/gender-pay-gap-dataset), where a lengthier explanation of the data can be found.''',unsafe_allow_html=True)
+st.markdown('''The data replicates [this 1996 publication](https://docs.iza.org/dp9656.pdf) from the Institute of Labor Economics, Bonn Germany''',unsafe_allow_html=True)
 st.write("Here, a stripped down version is used for a simple model. Only sex, region, years of experience and age are included.")
-st.write("There are about 21,500 data points.")
-st.markdown('''A lengthier discussion on the topic and data can be found in [this 1996 publication](https://docs.iza.org/dp9656.pdf) from the Institute of Labor Economics, Bonn Germany''',unsafe_allow_html=True)
+
 
 #@st.cache 
 df = pd.read_csv("./salary_df.csv")
