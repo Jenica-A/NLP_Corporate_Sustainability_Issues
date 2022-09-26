@@ -24,9 +24,12 @@ if st.checkbox("Show raw data"):
     st.write("I labeled the regions as: 1 = 'Pacific', 2 = 'Mountain', 3 = 'Central', 4 = 'Eastern'")
     st.write(df)
     
-age = st.slider('age',  min_value=25, max_value=65, step=1)
-years_exp = st.slider('yrsexp',min_value=0,  max_value=50, step=1)
-st.write(f"Age = {age} \n\n Year of Experience = {years_exp}")
+age = st.slider('Emplyee Age',  min_value=25, max_value=65, step=1)
+years_exp = st.slider('Years of Experience',min_value=0,  max_value=50, step=1)
+if age > years_exp:
+    st.warning('please pick a reasonable amount of experience based on employee age for most reliable model results)
+else:
+    st.write(f"Age = {age} \n\n Year of Experience = {years_exp}")
     
 X = df[['sex','region','yrsexp','age']]
 y = df['salary']
