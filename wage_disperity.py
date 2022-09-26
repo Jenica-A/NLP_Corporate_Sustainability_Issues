@@ -44,7 +44,7 @@ male_wage = np.round(reg.predict([[1,region,years_exp,age]]),2)
 wage_diff = round(float(male_wage - female_wage),2)
 st.write(f"Female wage is ${female_wage}")
 st.write(f"Male wage is ${male_wage}")
-st.title(f"In cases where emplyees in region {region}, who are {age} years old, with {years_exp} years of experience, the male worker earns ${wage_diff} more than the female worker annually.")
+st.subheader(f"In cases where emplyees in region {region}, who are {age} years old, with {years_exp} years of experience, the male worker earns ${wage_diff} more than the female worker annually.")
 
 
 
