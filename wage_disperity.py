@@ -35,10 +35,11 @@ female_wage = np.round(reg.predict([[2,region,years_exp,age]]),2)
 male_wage = np.round(reg.predict([[1,region,years_exp,age]]),2)
 wage_diff = round(float(male_wage - female_wage),2)
 
-st.subheader("Model Output")
+st.title("Model Output:")
+st.subheader("The wage gap at your company is ${:,}, annually".format(wage_diff))
 st.write(f"Female wage is ${female_wage}")
 st.write(f"Male wage is ${male_wage}")
-st.header("The wage gap at your company is ${:,}, annually".format(wage_diff))
+
 
 st.caption(f"Model Input:\n\n Age = {age} \n\n Years of Experience = {years_exp} \n\n Region = {region}")
 st.caption('This app uses linear regression to model the difference between employee salary, based on gender.')
