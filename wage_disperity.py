@@ -35,7 +35,7 @@ female_wage = np.round(reg.predict([[2,region,years_exp,age]]),2)
 male_wage = np.round(reg.predict([[1,region,years_exp,age]]),2)
 wage_diff = round(float(male_wage - female_wage),2)
 
-st.title("Model Output:")
+st.subheader("Model Output:")
 st.subheader("The wage gap at your company is ${:,}, annually".format(wage_diff))
 st.write(f"Female wage is ${female_wage}")
 st.write(f"Male wage is ${male_wage}")
@@ -46,9 +46,7 @@ st.caption('This app uses linear regression to model the difference between empl
 st.markdown("***")
 st.markdown('''The salary data come from [this kaggle dataset](https://www.kaggle.com/datasets/fedesoriano/gender-pay-gap-dataset), where a lengthier explanation of the data can be found.''',unsafe_allow_html=True)
 st.markdown('''The data replicate [this 1996 publication](https://docs.iza.org/dp9656.pdf) from the Institute of Labor Economics, Bonn Germany, which explores the lower earnings of female workers compared to their male counterparts''',unsafe_allow_html=True)
-st.caption("Here, a stripped down version of the data is used for a simple model. \n\n Only sex, region, years of experience and age are included.")
-st.markdown("***")
-
+st.write("Here, a stripped down version of the data is used for a simple model. Only sex, region, years of experience and age are included.")
 
 #@st.cache 
 
