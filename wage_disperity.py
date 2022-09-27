@@ -10,7 +10,7 @@ from sklearn import linear_model
 #%matplotlib inline
 #import seaborn as sns
 
-
+st.header("The wage gap at your company is ${:,}, annually".format(wage_diff))
 #Quick linear regression code based on https://www.kaggle.com/code/sarthakniwate13/linear-regression-multiple-variables-example-2
 st.title("Wage Disperity Simulation")
 st.write('This app uses linear regression to model the difference between employee salary, based on gender.')
@@ -56,7 +56,7 @@ wage_diff = round(float(male_wage - female_wage),2)
 st.subheader("Model Output")
 st.write(f"Female wage is ${female_wage}")
 st.write(f"Male wage is ${male_wage}")
-st.header("The wage gap is ${:,}, annually".format(wage_diff))
+st.header("The wage gap at your company is ${:,}, annually".format(wage_diff))
 
 
 
