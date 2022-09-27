@@ -7,6 +7,8 @@ import numpy as np
 import pandas as pd
 from sklearn import linear_model
 
+df = pd.read_csv("./salary_df.csv")    
+
 #Quick linear regression code based on https://www.kaggle.com/code/sarthakniwate13/linear-regression-multiple-variables-example-2
 st.title("Wage Disperity Simulation")
 
@@ -29,7 +31,7 @@ st.subheader("Model Input:")
 st.write(f"Age = {age} \n\n Years of Experience = {years_exp} \n\n Region = {region}")
 st.markdown("***")
 
-df = pd.read_csv("./salary_df.csv")    
+
 X = df[['sex','region','yrsexp','age']]
 y = df['salary']
 reg = linear_model.LinearRegression()
