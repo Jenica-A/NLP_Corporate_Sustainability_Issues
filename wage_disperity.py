@@ -27,10 +27,6 @@ region = st.selectbox('Choose a region, arbitrarily imagined: 1 = Pacific, 2 = M
 
 st.markdown("***")
 
-st.caption(f"Model Input: Age = {age} \n\n Years of Experience = {years_exp} \n\n Region = {region}")
-
-st.markdown("***")
-
 X = df[['sex','region','yrsexp','age']]
 y = df['salary']
 reg = linear_model.LinearRegression()
@@ -44,7 +40,7 @@ st.write(f"Female wage is ${female_wage}")
 st.write(f"Male wage is ${male_wage}")
 st.header("The wage gap at your company is ${:,}, annually".format(wage_diff))
 
-
+st.caption(f"Model Input:\n\n Age = {age} \n\n Years of Experience = {years_exp} \n\n Region = {region}")
 st.caption('This app uses linear regression to model the difference between employee salary, based on gender.')
 st.markdown("***")
 st.markdown('''The salary data come from [this kaggle dataset](https://www.kaggle.com/datasets/fedesoriano/gender-pay-gap-dataset), where a lengthier explanation of the data can be found.''',unsafe_allow_html=True)
