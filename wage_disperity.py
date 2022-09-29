@@ -22,7 +22,7 @@ st.write('(Pick a reasonable amount of experience based on employee age, for the
 st.markdown("***")
 
 section_list = sorted(df.region.unique())
-region = st.selectbox('Choose a region, arbitrarily imagined: 1 = Pacific, 2 = Mountain, 3 = Central, 4 = Eastern',
+region = st.selectbox('Choose a region: 1 = Pacific, 2 = Mountain, 3 = Central, 4 = Eastern',
      section_list)
 
 st.markdown("***")
