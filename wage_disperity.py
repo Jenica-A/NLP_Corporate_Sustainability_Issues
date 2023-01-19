@@ -52,7 +52,7 @@ st.write("Here, a stripped down version of the data is used for a simple model. 
 
 if st.checkbox("Show raw data"):
     st.subheader("Raw data")
-    st.write("In the 'sex' column, 1 = Male, 2 = Female") 
+    st.write("In the 'gender' column, 1 = Male, 2 = Female") 
     st.write("I labeled the regions as: 1 = 'Pacific', 2 = 'Mountain', 3 = 'Central', 4 = 'Eastern'")
     st.write(df)
 
