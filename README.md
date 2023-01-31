@@ -16,7 +16,7 @@ To conduct this research, I used Natural Language Processing techniques to model
     '4. Campaign Contributions', 
     '5. ESG management and corporate policies', 
     '6. Plastic Pollution and the Ocean',
-    '7. human rights impact assessments',
+    '7. Human Rights Impact Assessments',
 Results of this research will benefit consultants, companies, investors or activists who wish to understand the current state of sustainability practices and wish to learn from and apply the best practices to their own operations.
 
 #### **Design:**
