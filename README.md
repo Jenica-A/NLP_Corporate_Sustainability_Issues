@@ -14,7 +14,7 @@ To conduct this research, I used Natural Language Processing techniques to model
     '2. Activism/Lobbying', 
     '3. Female Wage Disparity',
     '4. Campaign Contributions', 
-    '5. ESG management and corporate policies', 
+    '5. ESG management and Corporate Policies', 
     '6. Plastic Pollution and the Ocean',
     '7. Human Rights Impact Assessments',
 Results of this research will benefit consultants, companies, investors or activists who wish to understand the current state of sustainability practices and wish to learn from and apply the best practices to their own operations.
