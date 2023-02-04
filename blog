@@ -44,10 +44,3 @@ Algorithms used include, Regex removal of special characters and punctuation, re
 References:
 Raghupathi, V.; Ren, J.; Raghupathi, W. Identifying Corporate Sustainability Issues by Analyzing Shareholder Resolutions: A Machine-Learning Text Analytics Approach. Sustainability 2020, 12, 4753. https://doi.org/10.3390/su12114753
 
-
-
-
-
-
-Deleted
-ESG consultants can be a high cost line item on the already potentially expensive upfront cost of changing business practices. To create a low cost method for discovering where companies can focus their attention and efforts, I use Natural Language Processing techniques to perform topic modeling of the terms within shareholder resolutions from ceres.org.
