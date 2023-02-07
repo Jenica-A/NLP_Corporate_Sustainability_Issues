@@ -25,33 +25,10 @@ Project Method
 
 After obtaining the data, I import them into Jupyter notebook, dropping any documents with null values, and converting all text to lower case - all with pandas. Then I use regex and lambda functions to remove numbers, special characters and a standard list of english stop words. (After a 
 
-
-#Create new column called 'filtered' and remove stopwords from 'prepped'
-df['filtered'] = df.prepped.apply(lambda x: ' '.join(
-  [word for word in x.split() if word not in (stop_words)]))
 (After a few runs through my model, I found there were words with frequent occurrence that did not contribute to the modeled results in a unique or helpful manner. I then created a list of custom stop words to remove along with the standard list. Here is the code I insterted before the last line in the box above.)
-#Define custom list of words to remove, add to the common, English stop words.
-custom_stop_words = ['www','whereas','include','full','request',
-                      'resolved','shareholder','shareholders','company',
-                      'companies','use','https','http','pdf','one',
-                      'this','report']
 
-stop_words = stopwords.words('english')
-stop_words2 = list(stop_words)
-
-for word in custom_stop_words:
-    stop_words2.append(word)
 I tokenized and stemmed the words in the documents, relying on the least aggressive stemmer (Porter) for my final model, but comparing the results of two other stemmers, Lancaster and SnowBall along the way to search for significant differences in results. Here is the code for the porter stemmer.
-#Name the stemmer
-porter = PorterStemmer()
 
-#Tokenize the filtered column before stemming and make new column
-df['tokenized'] = df.filtered.apply(lambda x: RegexpTokenizer(
-  "\s+", gaps=True).tokenize(x))#' '.join([word for word in x.split(
-  ) if word not in (stop_words2)]).porter.stem(x))
-
-#Create a column for the stemmed terms
-df['porter'] = df['tokenized'].apply(lambda x: [porter.stem(y) for y in x])
 Once I finished these processing steps, I created visualizations to preview the stemmed terms by frequency - a wordcloud (using the WordCloud python package) and a basic line plot (using Matplotlib). 
 Word cloud of Stemmed terms, where size corresponds to use frequency across entire corpusCount of use frequency for stemmed terms across entire corpusTo begin building the topic model, I created a document term matrix (DTM) for uni-gram, bi-gram, and tri-gram analysis, using the scikit-learn feature extraction package, CountVectorizer. Here, I also removed English stop words that may have made it through the earlier code, and I culled words that occurred in more than 99% of the documents (this is conservative and could be more aggressive) as well as words that occurred in fewer than six documents (this got rid of the name Zuckerberg, an arbitrary but effective cutoff). 
 #Create a list of the stemmed porter series, for use in the countvectorizer
