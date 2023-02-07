@@ -1,52 +1,139 @@
-The State of ESG—Using Natural Language Processing to Illuminate Corporate Sustainability Issues.
-
-“Once considered tangential to business decision-making, environmental, social and governance factors have now become business imperatives—and for those companies with foresight, sustainable business strategies are also a pathway to stable, profitable, long-term economic growth and social prosperity.”—ceres.org
-“Business as usual is not a viable option.” —Rebecca M Henderson, Reimagining Capitalism in a World on Fire
-Corporate sustainability practices are increasingly an important focus for stabilizing and growing a bottom line, amid an ever-changing, significantly interconnected global economy. According to an article in the Harvard Business Review, "Embedded sustainability efforts clearly result in a positive impact on business performance." The article explains how sustainability efforts:
+Machine Learning in ESG 
+Using Natural Language Processing to Illuminate the State of Corporate Sustainability Issues
+"Once considered tangential to business decision-making, environmental, social and governance factors have now become business imperatives - and for those companies with foresight, sustainable business strategies are also a pathway to stable, profitable, long-term economic growth and social prosperity." - ceres.org
+Photo by Karsten Würth on Unsplash"Business as usual is not a viable option." - Rebecca M Henderson, Reimagining Capitalism in a World on Fire
+Stabilizing and growing a bottom line increasingly requires focusing on corporate sustainability practices, amid an ever-changing, significantly interconnected global economy. According to an article in the Harvard Business Review, "Embedded sustainability efforts clearly result in a positive impact on business performance." The article explains that sustainability efforts:
 Improve risk management
-Foster innovation 
-Improve financial performance 
-Increase customer loyalty 
-Attract and engage employees 
+Foster innovation
+Improve financial performance
+Increase customer loyalty
+Attract and engage employees
 Drive a competitive advantage through positive stakeholder engagement.
-But what are those practices? For companies wanting to explore bringing their own operations up to speed with consumer and investor demands for ethical operations, where should they focus their attention? What practices should they audit and consider improving? And how can a company that is already committed to ethical ESG practices stay up to date on topics of concern? Which topics are the most pressing, in the eye of investors and consumers? I used unsupervised Natural Language Processing (NLP) and ceres.org to find out.
-Ceres.org is an organization that tracks the sustainability reporting of companies and compiles shareholder resolutions filed by investment network members. The site hosts an "Engagement Tracker" database that contains thousands of resolution entries, dating from 2009 to present. These resolutions are part of broader investor efforts to encourage companies to address the full scope of environmental, social and governance (ESG) issues.
-I obtained a corpus of 923 shareholder resolutions, initially scraping the documents from ceres.org using selenium, then gathering hundreds manually after my selenium program produced an incomplete corpus (will return to troubleshoot automating this acquisition!). Each document included filing status, title, publicly traded organization, the filing party, filing year, and the resolution text. I collected shareholder resolutions from January, 2019 to June, 2022, which contained about 410,000 words in total.
-I discovered that similar research was conducted and published by Raghupathi, V. et. al (2020) in the journal Sustainability, and my results are examined with a comparative eye to results they achieved. While our research largely follows similar NLP paths, the fundamental questions behind our research vary. Raghupathi, V. et. al (2020) asked, “Do shareholder resolutions reflect corporate sustainability concerns in terms of environmental, social, and governance aspects?”
+
+But what are those practices? For companies wanting to explore bringing their own operations up to speed with consumer and investor demands for ethical operations, where should they focus their attention - which of their own practices should they audit or consider improving? And how can a company that is already committed to ethical ESG practices stay up to date on topics of concern - which topics are the most pressing, in the eye of investors and consumers? 
+I used unsupervised Natural Language Processing (NLP) and ceres.org to find out!
+Ceres.org, a non-profit that tracks companies' sustainability reporting, compiles shareholder resolutions filed by investment network members in an "Engagement Tracker" database. The database contains thousands of resolution entries, dating from 2009 to present. These resolutions are part of broader investor efforts to encourage companies to address the full scope of environmental, social and governance (ESG) issues.
+I obtained a corpus of 923 shareholder resolutions, initially scraping the documents from ceres.org using selenium, then gathering hundreds manually when my selenium program produced an incomplete corpus (Arg! I will return to troubleshoot automating this acquisition - and I will write about it!). Each document included the filing status, title, publicly traded organization, filing party, filing year, and resolution text. I collected shareholder resolutions from January, 2019 to June, 2022, which contained about 407,000 words in total.
+I discovered that similar research was conducted and published by Raghupathi, V. et. al (2020) in the journal Sustainability, and my results are examined with a comparative eye to results they achieved. While our research largely follows similar NLP paths, the fundamental questions behind our research diverge. Raghupathi, V. et. al (2020) asked, "Do shareholder resolutions reflect corporate sustainability concerns in terms of environmental, social, and governance aspects?"
 My research aimed at understanding:
-What topics (in what frequency) occur in shareholder sustainability resolutions?
+What topics, in what frequency, occur in shareholder sustainability resolutions?
 Do proposed resolutions have positive, negative or neutral sentiment scores?
 If there is a variety of sentiments, what topics are associated with each sentiment type?
 
-I use sentiment score as an indication of how the filing party is feeling about the topic. I use topic frequency along with sentiment score as proxies for understanding which issues are the most urgent to address, focusing first on topics with the most negative score (possibly the most grave concerns) and topics occurring in the highest frequency (the most common concerns).
-
+I use sentiment score as an indication of how the filing party is feeling about the topic. To determine which issues are the most urgent to address, I use topic frequency along with sentiment score, focusing first on topics with the most negative score (possibly the most grave concerns) and topics occurring in the highest frequency (the most common concerns).
 Project Method
-After obtaining the data, I import them into Jupyter notebook, dropping any documents with null values, and converting all text to lower case, all with pandas. Then I use regex and lambda functions to remove numbers, special characters and a standard list of english stop words.  *insert code*
-I stemmed the words in the documents, relying on the least aggressive stemmer (Porter) for my final model, but comparing the results of two other stemmers, Lancaster and SnowBall along the way to search for significant differences in results. *insert stemming code* 
-Once I finished these processing steps, I created a couple of visualizations to preview the stemmed terms by frequency—a wordcloud (using the WordCloud python package) and a line plot (using Matplotlib). See code below *insert code*
 
-To begin building the topic model, I created a document term matrix (DTM) for uni-gram, bi-gram, and tri-gram analysis, using CountVectorizer. Here, I also removed English stop words that may have made it through the earlier code, and I culled words that occurred in more than 99% of the documents (this is conservative and could be more aggressive) as well as words that occurred in fewer than six documents (this got rid of the name Zuckerberg, an arbitrary but effective cutoff).  *insert code* 
-I applied Scikit-Learn’s non-negative matrix factorization (NMF) to the DTM, which clustered the terms into use groups. *insert code* I experimented with the number of groups needed to accurately capture the topics, without repetition (in the case of too many groups) and without ambiguity (in the case of too few groups). I arrived at seven use groups, which I then labeled manually. Here are the results:
-I should note that after creating the word cloud and while trying to arrive at the optimal number of use groups, I discovered there were a handful of words that occurred in high enough frequency that they appeared in the results, but did not contribute to the defining of the use groups in any significant manner. Such words included, 'www', 'whereas', 'include', 'full', ‘request', ‘resolved', ‘shareholder', ‘shareholders', 'company', ‘companies', ‘use', 'https', 'http', 'pdf', and ‘one’. I returned to the earlier step where I removed stop words and I created a list of custom stop words to remove. *here is the code*.
+After obtaining the data, I import them into Jupyter notebook, dropping any documents with null values, and converting all text to lower case - all with pandas. Then I use regex and lambda functions to remove numbers, special characters and a standard list of english stop words. (After a 
 
-Of these topics, “Human Rights Impact Assessment” was a bit ambiguous to me, so I did a deeper dive with a second round of topic modeling on the documents that fell within the category. The results are discussed further down in this article.
-Next, I created a document-topic matrix using NMF again, and assigned the highest scoring topic to each of the documents in the corpus using pandas idxmax. *insert code*
-I counted the frequency of topics, and visualized the number of resolutions per year and the count of topics over time (from 2019-2022)*.
-Sentiment analysis came next. I explored the sentiment score of each topic using SentimentIntensityAnalyzer from the Vader Sentiment package. It produced a positive score, negative score and compound score for each pre-processed but un-stemmed document. The compound score measures the overall sentiment with a score of 1 being the most positive score a document can have. Here is a plot of all document scores and a plot of average compound score by topic.*
-The sentiment score of these topics may reflect those which the shareholders view are the most (and least) grave or egregious topics. Human rights impact assessment is the only topic that received a negative average compound sentiment score, and as mentioned above, the topic could be better understood. To do this, I ran a second round of topic modeling on documents that were classified as pertaining to “Human Rights Impact Assessment". The results showed that the concerns raged from obvious human rights concerns like the rights of indigenous communities, slavery, trafficking, prison labor, and tech industry overreach, to topics that did not directly involve human rights directly like deforestation and animal welfare. Then there was a less-clear use group that I labeled as “water mitigation whistle-blowing” because of the terms contained in a larger cluster of words..   Here are the results of the subset topic modeling:*
 
+#Create new column called 'filtered' and remove stopwords from 'prepped'
+df['filtered'] = df.prepped.apply(lambda x: ' '.join(
+  [word for word in x.split() if word not in (stop_words)]))
+(After a few runs through my model, I found there were words with frequent occurrence that did not contribute to the modeled results in a unique or helpful manner. I then created a list of custom stop words to remove along with the standard list. Here is the code I insterted before the last line in the box above.)
+#Define custom list of words to remove, add to the common, English stop words.
+custom_stop_words = ['www','whereas','include','full','request',
+                      'resolved','shareholder','shareholders','company',
+                      'companies','use','https','http','pdf','one',
+                      'this','report']
+
+stop_words = stopwords.words('english')
+stop_words2 = list(stop_words)
+
+for word in custom_stop_words:
+    stop_words2.append(word)
+I tokenized and stemmed the words in the documents, relying on the least aggressive stemmer (Porter) for my final model, but comparing the results of two other stemmers, Lancaster and SnowBall along the way to search for significant differences in results. Here is the code for the porter stemmer.
+#Name the stemmer
+porter = PorterStemmer()
+
+#Tokenize the filtered column before stemming and make new column
+df['tokenized'] = df.filtered.apply(lambda x: RegexpTokenizer(
+  "\s+", gaps=True).tokenize(x))#' '.join([word for word in x.split(
+  ) if word not in (stop_words2)]).porter.stem(x))
+
+#Create a column for the stemmed terms
+df['porter'] = df['tokenized'].apply(lambda x: [porter.stem(y) for y in x])
+Once I finished these processing steps, I created visualizations to preview the stemmed terms by frequency - a wordcloud (using the WordCloud python package) and a basic line plot (using Matplotlib). 
+Word cloud of Stemmed terms, where size corresponds to use frequency across entire corpusCount of use frequency for stemmed terms across entire corpusTo begin building the topic model, I created a document term matrix (DTM) for uni-gram, bi-gram, and tri-gram analysis, using the scikit-learn feature extraction package, CountVectorizer. Here, I also removed English stop words that may have made it through the earlier code, and I culled words that occurred in more than 99% of the documents (this is conservative and could be more aggressive) as well as words that occurred in fewer than six documents (this got rid of the name Zuckerberg, an arbitrary but effective cutoff). 
+#Create a list of the stemmed porter series, for use in the countvectorizer
+corpus_port = list(df.porter)
+
+#Create this code uses the first 100 characters from the resolution title as the index for the dataframe--this aids with interpretability
+indx_label = [e[:100]+"..." for e in df.title]
+
+#Name the count vectorizer, remove stop words again, 
+  #set range of desired document frequency, and include desired n-grams
+cv = CountVectorizer(stop_words = 'english', min_df = 6, 
+  max_df = .99, ngram_range=(1, 3))
+
+#Using the porter stemmed data for the dtm
+X_port = cv.fit_transform(corpus_port)
+dtm_port = pd.DataFrame(X_port.toarray(), index=indx_label, 
+  columns=cv.get_feature_names_out())
+I applied Scikit-Learn's non-negative matrix factorization (NMF) to the DTM, which clustered the terms into use groups. 
+nmf = NMF(7, init = "nndsvda") 
+nmf.fit(dtm_port)
+topic_term_df = pd.DataFrame(topic_term, columns = cv.get_feature_names_out())
+topic_term_df
+
+# This function displays the top n terms in each topic
+# The following code was found is material from Metis's Unsupervise NLP course
+def display_topics(model, feature_names, no_top_words, topic_names = None): 
+    for ix, topic in enumerate(model.components_):
+        if not topic_names or not topic_names[ix]:
+            print("\nTopic ", ix + 1)
+        else:
+            print("\nTopic: ", topic_names[ix])
+        print(", ".join([feature_names[i]
+                        for i in topic.argsort()[:-no_top_words - 1:-1]]))
+    print("\n")
+    return model, feature_names, no_top_words
+
+output = display_topics(nmf, cv.get_feature_names_out(), 10)
+I experimented with the number of groups needed to accurately capture the topics without repetition (in the case of too many groups) and without ambiguity (in the case of too few groups). I arrived at seven use groups, which I then labeled, manually. Here are the results:
+Of these topics, "Topic 6. Human Rights Impact Assessment" was a bit ambiguous, so I did a deeper dive with a second round of topic modeling on the documents that fell within the category. The results are discussed further down in this article.
+Next, I created a document-topic matrix using NMF again, and assigned the highest scoring topic to each of the documents in the corpus, using pandas idxmax. 
+doc_topic = nmf.transform(dtm_port)
+doc_topic_df = pd.DataFrame(doc_topic.round(5), index = indx_label, columns = [
+    '1. ESG Management and Corporate Policies', 
+    '2. Activism/Lobbying', 
+    '3. Female Wage Disparity',
+    '4. Campaign Contributions', 
+    '5. Plastic Pollution, Recycling and the Ocean',
+    '6. Human Rights Impact Assessments', 
+    '7. Climate Emissions Goals' 
+])
+doc_topic_df.index.name = 'indx_label'
+
+#This code from stackexchange
+#Find the column name of maximum values in every row
+maxValueIndex = doc_topic_df.idxmax(axis = 1)
+ 
+maxValueIndex_df = pd.DataFrame(maxValueIndex, columns=['topic'])
+Say something here*
+#Prepare to merge the new topics lable df with the original df, for further exploration and analysis (eg changes over time!)
+#create a df for the left side of merge and a df for right side of merge.
+left = df.drop(['status', 'organization', 'filtered','title', 'filed_by',
+       'preprocessed', 'lancaster', 'snowball', 'tokenized', 'whereas'
+       ], axis = 1)
+#label the index uniquely and consistently 
+s = pd.Series(range(1,922))
+
+left['indx_label'] = [e[:100]+"..." for e in df.title]
+left.set_index([s, indx_label], inplace = True)
+right = maxValueIndex_df
+right.set_index([s, indx_label], inplace = True)
+I counted the frequency of topics, and visualized the number of resolutions per year and the count of topics over time (from 2019–2022)*.
+This line plot shows the number of resolutions dropped in 2020 and 2021, likely due to the economic shut down during the COVID-19 pandemic. Resolutions were only collected until June, 2022.Number of resolutions by topic per yearSentiment Analysis
+Next, I explored the sentiment score of each topic using SentimentIntensityAnalyzer from the Vader Sentiment package. It produced a positive score, negative score and compound score for each pre-processed, un-stemmed document. The compound score measures the overall sentiment with a score of 1 being the most positive score a document can have, and -1 being the most negative. Here is a plot of all document scores and a plot of average compound score by topic.*
+The sentiment score of these topics may reflect those which the shareholders view are the most (to least) grave or egregious topics. Human rights impact assessment is the only topic that received a negative average compound sentiment score, and as mentioned above, the topic could be better understood. To do this, I ran a second round of topic modeling on documents that were classified as pertaining to "Human Rights Impact Assessment". The results showed that the concerns raged from obvious human rights concerns like the rights of indigenous communities, slavery, trafficking, prison labor, and tech industry overreach, to topics that did not directly involve human rights directly like deforestation and animal welfare. One use-group that was not very clear at first glance I labeled as "water mitigation whistle-blowing" because of the terms contained in a larger cluster of words. Here are the results of the "Human Rights Impact Assessment" subset topic modeling:
 Applying these results
-Conducting a self-audit of a company’s practices is the next step. While this is outside the initial scope of the project, I chose to explore the applicability of some of this knowledge by constructing an app that can be used to explore wage disparity within a company. See *this* article for more information. I downloaded a sample salary dataset from kaggle.com and created a simple streamlit app that used linear regression to predict the salary of a hypothetical employee. All factors were kept the same (age, location, years of work, etc) and two salaries were predicted, one for a male employee and one for a female employee. In this sample dataset, the predicted female wage was consistently measurably less than the male's wage. The app and an article describing the process of app creation will be posted shortly and this article updated.
+Conducting a self-audit of a company's practices is the next step. While this is outside the initial scope of the project, I chose to explore the applicability of some of this knowledge by constructing an app that can be used to explore wage disparity within a company. See *this* article for more information. I downloaded a sample salary dataset from kaggle.com and created a simple streamlit app that used linear regression to predict the salary of a hypothetical employee. All factors were kept the same (age, location, years of work, etc) and two salaries were predicted, one for a male employee and one for a female employee. In this sample dataset, the predicted female wage was consistently measurably less than the male's wage. The app and an article describing the process of app creation will be posted shortly and this article updated.
 Summary
 I found that the top occurring topics in the corpus of resolutions includes: '1. Climate emissions targets', '2. Activism/Lobbying', '3. Female Wage Disparity', '4. Campaign Contributions', '5. ESG management and corporate policies', '6. Plastic Pollution and the Ocean', '7. human rights impact assessments', Results of this research will benefit consultants, companies, investors or activists who wish to understand the current state of sustainability practices and wish to learn from and apply the best practices to their own operations.
-
-Moving forward, I would like to solve the issue I’m having with scraping the documents (dynamically loaded page is proving tricky for me at this time!). It would be great to automate the acquisition of documents to have a larger corpus, allow for more robust exploration over time, and a closer look at the most relevant topics today. I would also like to explore the use of NMF coherence score as a way to stabilize the model with objective optimization of the best number of topics for the corpus.
-
+Moving forward, I would like to solve the issue I'm having with scraping the documents (dynamically loaded page is proving tricky for me at this time!). It would be great to automate the acquisition of documents to have a larger corpus, allow for more robust exploration over time, and a closer look at the most relevant topics today. I would also like to explore the use of NMF coherence score as a way to stabilize the model with objective optimization of the best number of topics for the corpus.
 Discussion
-The number of climate focused resolutions is an indication of the trending nature of that concern. The negative sentiment score of “Moral/Ethical practices” may indicate the gravity of the topic and thus the severity of a popular backlash by consumers if a company is found to be violating those ethics. Both can be seen as crucial starting points when evaluating business practices, auditing and altering operational practices. 
+The number of climate focused resolutions is an indication of the trending nature of that concern. The negative sentiment score of "Moral/Ethical practices" may indicate the gravity of the topic and thus the severity of a popular backlash by consumers if a company is found to be violating those ethics. Both can be seen as crucial starting points when evaluating business practices, auditing and altering operational practices.
 Algorithms/Tools
 Algorithms used include, Regex removal of special characters and punctuation, removal of stopwords via lambda function and countvectorizor, stemming using Porter, Lancaster, and Snowball for comparison (porter went with), clustering and dimensionality reduction using non-negative matrix factorization and vader sentiment analysis. I used matplotlib and wordcloud to create visualizations.
 References:
-Raghupathi, V.; Ren, J.; Raghupathi, W. Identifying Corporate Sustainability Issues by Analyzing Shareholder Resolutions: A Machine-Learning Text Analytics Approach. Sustainability 2020, 12, 4753. https://doi.org/10.3390/su12114753
-
-
+Raghupathi, V.; Ren, J.; Raghupathi, W. Identifying Corporate Sustainability Issues by Analyzing Shareholder Resolutions: A Machine-Learning Text Analytics Approach. Sustainability 2020, 12, 4753. https://doi.org/10.3390/su12114753
