@@ -31,74 +31,14 @@ I tokenized and stemmed the words in the documents, relying on the least aggress
 
 Once I finished these processing steps, I created visualizations to preview the stemmed terms by frequency - a wordcloud (using the WordCloud python package) and a basic line plot (using Matplotlib). 
 Word cloud of Stemmed terms, where size corresponds to use frequency across entire corpusCount of use frequency for stemmed terms across entire corpusTo begin building the topic model, I created a document term matrix (DTM) for uni-gram, bi-gram, and tri-gram analysis, using the scikit-learn feature extraction package, CountVectorizer. Here, I also removed English stop words that may have made it through the earlier code, and I culled words that occurred in more than 99% of the documents (this is conservative and could be more aggressive) as well as words that occurred in fewer than six documents (this got rid of the name Zuckerberg, an arbitrary but effective cutoff). 
-#Create a list of the stemmed porter series, for use in the countvectorizer
-corpus_port = list(df.porter)
 
-#Create this code uses the first 100 characters from the resolution title as the index for the dataframe--this aids with interpretability
-indx_label = [e[:100]+"..." for e in df.title]
-
-#Name the count vectorizer, remove stop words again, 
-  #set range of desired document frequency, and include desired n-grams
-cv = CountVectorizer(stop_words = 'english', min_df = 6, 
-  max_df = .99, ngram_range=(1, 3))
-
-#Using the porter stemmed data for the dtm
-X_port = cv.fit_transform(corpus_port)
-dtm_port = pd.DataFrame(X_port.toarray(), index=indx_label, 
-  columns=cv.get_feature_names_out())
 I applied Scikit-Learn's non-negative matrix factorization (NMF) to the DTM, which clustered the terms into use groups. 
-nmf = NMF(7, init = "nndsvda") 
-nmf.fit(dtm_port)
-topic_term_df = pd.DataFrame(topic_term, columns = cv.get_feature_names_out())
-topic_term_df
-
-# This function displays the top n terms in each topic
-# The following code was found is material from Metis's Unsupervise NLP course
-def display_topics(model, feature_names, no_top_words, topic_names = None): 
-    for ix, topic in enumerate(model.components_):
-        if not topic_names or not topic_names[ix]:
-            print("\nTopic ", ix + 1)
-        else:
-            print("\nTopic: ", topic_names[ix])
-        print(", ".join([feature_names[i]
-                        for i in topic.argsort()[:-no_top_words - 1:-1]]))
-    print("\n")
-    return model, feature_names, no_top_words
 
 output = display_topics(nmf, cv.get_feature_names_out(), 10)
 I experimented with the number of groups needed to accurately capture the topics without repetition (in the case of too many groups) and without ambiguity (in the case of too few groups). I arrived at seven use groups, which I then labeled, manually. Here are the results:
 Of these topics, "Topic 6. Human Rights Impact Assessment" was a bit ambiguous, so I did a deeper dive with a second round of topic modeling on the documents that fell within the category. The results are discussed further down in this article.
 Next, I created a document-topic matrix using NMF again, and assigned the highest scoring topic to each of the documents in the corpus, using pandas idxmax. 
-doc_topic = nmf.transform(dtm_port)
-doc_topic_df = pd.DataFrame(doc_topic.round(5), index = indx_label, columns = [
-    '1. ESG Management and Corporate Policies', 
-    '2. Activism/Lobbying', 
-    '3. Female Wage Disparity',
-    '4. Campaign Contributions', 
-    '5. Plastic Pollution, Recycling and the Ocean',
-    '6. Human Rights Impact Assessments', 
-    '7. Climate Emissions Goals' 
-])
-doc_topic_df.index.name = 'indx_label'
 
-#This code from stackexchange
-#Find the column name of maximum values in every row
-maxValueIndex = doc_topic_df.idxmax(axis = 1)
- 
-maxValueIndex_df = pd.DataFrame(maxValueIndex, columns=['topic'])
-Say something here*
-#Prepare to merge the new topics lable df with the original df, for further exploration and analysis (eg changes over time!)
-#create a df for the left side of merge and a df for right side of merge.
-left = df.drop(['status', 'organization', 'filtered','title', 'filed_by',
-       'preprocessed', 'lancaster', 'snowball', 'tokenized', 'whereas'
-       ], axis = 1)
-#label the index uniquely and consistently 
-s = pd.Series(range(1,922))
-
-left['indx_label'] = [e[:100]+"..." for e in df.title]
-left.set_index([s, indx_label], inplace = True)
-right = maxValueIndex_df
-right.set_index([s, indx_label], inplace = True)
 I counted the frequency of topics, and visualized the number of resolutions per year and the count of topics over time (from 2019–2022)*.
 This line plot shows the number of resolutions dropped in 2020 and 2021, likely due to the economic shut down during the COVID-19 pandemic. Resolutions were only collected until June, 2022.Number of resolutions by topic per yearSentiment Analysis
 Next, I explored the sentiment score of each topic using SentimentIntensityAnalyzer from the Vader Sentiment package. It produced a positive score, negative score and compound score for each pre-processed, un-stemmed document. The compound score measures the overall sentiment with a score of 1 being the most positive score a document can have, and -1 being the most negative. Here is a plot of all document scores and a plot of average compound score by topic.*
